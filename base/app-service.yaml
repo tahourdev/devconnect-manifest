@@ -1,16 +1,15 @@
+# base/app-service.yaml — ផ្លាស់ type
 apiVersion: v1
 kind: Service
 metadata:
   name: devconnect-app
-  labels:
-    app: devconnect-app
-    tier: backend
 spec:
   selector:
-    app: devconnect-app
+    app: devconnect
   ports:
     - name: http
       protocol: TCP
       port: 80
       targetPort: 8080
-  type: ClusterIP
+      nodePort: 30080       # ← port ដែល access ពីក្រៅ
+  type: NodePort            # ← ពី ClusterIP → NodePort
