@@ -10,5 +10,5 @@ patches:
   - path: patch-app-deployment.yaml
 
 images:
-  - name: keanghor/devconnect-api-img
-    newTag: "latest"   
+  - name: keanghor/devconnect-api-img   # ✅ match ជាមួយ base image name
+    newTag: "latest"

@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - name: devconnect-app
+        - name: devconnect        # ✅ ត្រូវ match container name ក្នុង base
           resources:
             requests:
               cpu: "250m"
