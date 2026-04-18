@@ -6,7 +6,7 @@ data:
   # Application
   SPRING_APPLICATION_NAME: "DevConnect_SpringBoot"
   SPRING_MAIN_BANNER_MODE: "off"
-  LOGGING_LEVEL_ROOT: "warn"
+  LOGGING_LEVEL_ROOT: "info"                              # ✅ ពី warn → info
 
   # Datasource
   SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/railway"
