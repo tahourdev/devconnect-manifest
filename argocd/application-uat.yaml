@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devconnect-uat
+  namespace: argocd
+  labels:
+    env: uat
+    app: devconnect
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/tahourdev/devconnect-manifest.git
+    targetRevision: main
+    path: overlays/uat
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: uat-dmb
+
+  syncPolicy:
+    automated:
+      prune: true       # លុប resource ចាស់ automatic
+      selfHeal: true    # revert manual changes back to Git state
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true

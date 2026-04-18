@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devconnect-app
+  labels:
+    app: devconnect
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devconnect
+  template:
+    metadata:
+      labels:
+        app: devconnect
+    spec:
+      containers:
+        - name: devconnect
+          image: keanghor/devconnect-api-img:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: devconnect-config
+            - secretRef:
+                name: devconnect-secret
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 15

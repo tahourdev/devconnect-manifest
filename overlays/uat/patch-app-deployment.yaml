@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devconnect-app
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: devconnect-app
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+          env:
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: "update"
+            - name: SENTRY_TRACES_SAMPLE_RATE
+              value: "1.0"

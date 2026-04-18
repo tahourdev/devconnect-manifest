@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devconnect-app
+spec:
+  replicas: 2                    # PRD ត្រូវការ HA
+  template:
+    spec:
+      containers:
+        - name: devconnect-app
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+          env:
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: "validate"  # PRD ហាមបង្កើត/កែ schema auto
+            - name: SENTRY_TRACES_SAMPLE_RATE
+              value: "0.2"       # PRD sample ទាប ជៀសវាង quota exhausted

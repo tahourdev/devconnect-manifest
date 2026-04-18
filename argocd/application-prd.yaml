@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devconnect-prd
+  namespace: argocd
+  labels:
+    env: prd
+    app: devconnect
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/tahourdev/devconnect-manifest.git
+    targetRevision: main
+    path: overlays/prd
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prd-dmb
+
+  syncPolicy:
+    automated:
+      prune: false      # PRD កុំ prune auto — ត្រូវ review ដោយខ្លួនឯងជាមុន
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
